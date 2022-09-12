@@ -1,0 +1,23 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "the best way to wathch videos.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leechanggi/wetube.git"
+  },
+  "scripts": {
+    "win": "node index.js",
+    "build": "",
+    "compressCss": ""
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leechanggi/wetube/issues"
+  },
+  "homepage": "https://github.com/leechanggi/wetube#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
