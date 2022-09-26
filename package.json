@@ -7,9 +7,7 @@
     "url": "git+https://github.com/leechanggi/wetube.git"
   },
   "scripts": {
-    "win": "node index.js",
-    "build": "",
-    "compressCss": ""
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "",
   "license": "MIT",
@@ -19,5 +17,11 @@
   "homepage": "https://github.com/leechanggi/wetube#readme",
   "dependencies": {
     "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
+    "nodemon": "^2.0.20"
   }
 }
