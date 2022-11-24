@@ -4,9 +4,11 @@ const PORT = 4000;
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World</h1>');
-});
+const handleHome = (req, res) => {
+  res.send('Hellow Node JS');
+};
+
+app.get('/', handleHome); // => get request
 
 const handleListening = () => {
   console.log(`Server listenting on post http://localhost:${PORT}`);
