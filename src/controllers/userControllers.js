@@ -1,9 +1,20 @@
-export const globaljoin = (req, res) => {
-  res.send('Join');
+const globalJoin = (req, res) => {
+  res.send('Join global');
 };
-export const userEdit = (req, res) => {
+const globalLogin = (req, res) => {
+  res.send('Login global');
+};
+const userEdit = (req, res) => {
   res.send('Edit user');
 };
-export const userDelete = (req, res) => {
-  res.send('Delete user');
+const userRemove = (req, res) => {
+  res.send('Remove user');
 };
+const userLogout = (req, res) => {
+  res.send('Logout user');
+};
+const userWatch = (req, res) => {
+  res.send('Watch user');
+};
+
+export { globalJoin, globalLogin, userEdit, userRemove, userLogout, userWatch };
