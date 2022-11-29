@@ -4,6 +4,7 @@ const globalJoin = (req, res) => {
 const globalLogin = (req, res) => {
   res.send('Login global');
 };
+
 const userEdit = (req, res) => {
   res.send('Edit user');
 };
