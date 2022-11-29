@@ -12,6 +12,10 @@ const handleListening = () => {
   console.log(`Server listenting on port http://localhost:${PORT}`);
 };
 
+// app.set('x-powered-by', false);
+app.set('views', process.cwd() + '/src/views');
+app.set('view engine', 'pug');
+
 /** Middleware */
 app.use(logger);
 
