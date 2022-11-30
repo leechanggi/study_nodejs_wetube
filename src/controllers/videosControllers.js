@@ -1,6 +1,7 @@
 import config from '../config.json';
 const data = { ...config };
-const videos = [
+
+let videos = [
   { title: 'Video #1', rating: 5, comments: 4, createdAt: '2 minutes ago', views: 59, id: 1 },
   { title: 'Video #2', rating: 4, comments: 3, createdAt: '3 minutes ago', views: 49, id: 2 },
   { title: 'Video #3', rating: 3, comments: 2, createdAt: '4 minutes ago', views: 39, id: 3 },
@@ -15,11 +16,13 @@ const globalSearch = (req, res) => {
 };
 
 /** videos */
+const videoWatch = (req, res) => {
+  const { id } = req.params;
+  const video = videos[id - 1];
+  res.render(data.videoWatch.path, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, video));
+};
 const videoUpload = (req, res) => {
   res.render(data.videoUpload.path, data.videoUpload);
-};
-const videoWatch = (req, res) => {
-  res.render(data.videoWatch.path, data.videoWatch);
 };
 const videoEdit = (req, res) => {
   res.render(data.videoEdit.path, data.videoEdit);
