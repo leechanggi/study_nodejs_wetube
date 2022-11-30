@@ -1,0 +1,8 @@
+{
+  "globalApp": { "path": "app", "pageTitle": "Home" },
+  "globalSearch": { "path": "search", "pageTitle": "Search" },
+  "videoUpload": { "path": "video/videoUpload", "pageTitle": "Search" },
+  "videoWatch": { "path": "video/videoWatch", "pageTitle": "Watch" },
+  "videoEdit": { "path": "video/videoEdit", "pageTitle": "Edit" },
+  "videoRemove": { "path": "video/videoRemove", "pageTitle": "Remove" }
+}

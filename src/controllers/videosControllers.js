@@ -1,21 +1,25 @@
-const globalTrending = (req, res) => {
-  res.render('app');
+import data from '../config.json';
+
+/** global */
+const globalApp = (req, res) => {
+  res.render(data.globalApp.path, data.globalApp);
 };
 const globalSearch = (req, res) => {
-  res.send('Search');
+  res.render(data.globalSearch.path, data.globalSearch);
 };
 
+/** videos */
 const videoUpload = (req, res) => {
-  res.send('Upload Video');
+  res.render(data.videoUpload.path, data.videoUpload);
 };
 const videoWatch = (req, res) => {
-  res.render('videoWatch');
+  res.render(data.videoWatch.path, data.videoWatch);
 };
 const videoEdit = (req, res) => {
-  res.render('videoEdit');
+  res.render(data.videoEdit.path, data.videoEdit);
 };
 const videoRemove = (req, res) => {
-  res.send(`<h1>Remove Video #${req.params.id}</h1>`);
+  res.render(data.videoRemove.path, data.videoRemove);
 };
 
-export { globalTrending, globalSearch, videoUpload, videoWatch, videoEdit, videoRemove };
+export { globalApp, globalSearch, videoUpload, videoWatch, videoEdit, videoRemove };

@@ -1,3 +1,4 @@
+/** global */
 const globalJoin = (req, res) => {
   res.send('Join global');
 };
@@ -5,6 +6,7 @@ const globalLogin = (req, res) => {
   res.send('Login global');
 };
 
+/** user */
 const userEdit = (req, res) => {
   res.send('Edit user');
 };
