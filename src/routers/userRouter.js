@@ -3,9 +3,10 @@ import { userEdit, userRemove, userLogout, userWatch } from '../controllers/user
 
 const userRouter = express.Router();
 
+userRouter.get('/logout', userLogout);
 userRouter.get('/edit', userEdit);
 userRouter.get('/remove', userRemove);
-userRouter.get('/logout', userLogout);
+
 userRouter.get('/:id', userWatch);
 
 export default userRouter;

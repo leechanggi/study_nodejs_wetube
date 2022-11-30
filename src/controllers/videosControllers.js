@@ -1,8 +1,14 @@
-import data from '../config.json';
+import config from '../config.json';
+const data = { ...config };
+const videos = [
+  { title: 'Video #1', rating: 5, comments: 4, createdAt: '2 minutes ago', views: 59, id: 1 },
+  { title: 'Video #2', rating: 4, comments: 3, createdAt: '3 minutes ago', views: 49, id: 2 },
+  { title: 'Video #3', rating: 3, comments: 2, createdAt: '4 minutes ago', views: 39, id: 3 },
+];
 
 /** global */
 const globalApp = (req, res) => {
-  res.render(data.globalApp.path, data.globalApp);
+  res.render(data.globalApp.path, Object.assign(data.globalApp, { videos }));
 };
 const globalSearch = (req, res) => {
   res.render(data.globalSearch.path, data.globalSearch);

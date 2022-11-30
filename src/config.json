@@ -1,9 +1,16 @@
 {
   "globalApp": { "path": "global/app", "pageTitle": "Home" },
   "globalSearch": { "path": "global/search", "pageTitle": "Search" },
+  "globalJoin": { "path": "global/join", "pageTitle": "Join" },
+  "globalLogin": { "path": "global/Login", "pageTitle": "Login" },
 
-  "videoUpload": { "path": "video/videoUpload", "pageTitle": "Search" },
   "videoWatch": { "path": "video/videoWatch", "pageTitle": "Watch" },
+  "videoUpload": { "path": "video/videoUpload", "pageTitle": "Search" },
   "videoEdit": { "path": "video/videoEdit", "pageTitle": "Edit" },
-  "videoRemove": { "path": "video/videoRemove", "pageTitle": "Remove" }
+  "videoRemove": { "path": "video/videoRemove", "pageTitle": "Remove" },
+
+  "userWatch": { "path": "user/userWatch", "pageTitle": "userWatch" },
+  "userLogout": { "path": "user/userLogout", "pageTitle": "userLogout" },
+  "userEdit": { "path": "user/userEdit", "pageTitle": "userEdit" },
+  "userRemove": { "path": "user/userRemove", "pageTitle": "userRemove" }
 }
