@@ -1,3 +1,5 @@
+import data from '../config.json';
+
 /** global */
 const globalJoin = (req, res) => {
   res.send('Join global');
