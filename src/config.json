@@ -5,7 +5,7 @@
   "globalLogin": { "renderPath": "global/Login", "pageTitle": "Login" },
 
   "videoWatch": { "renderPath": "video/videoWatch", "pageTitle": "Watch" },
-  "videoUpload": { "renderPath": "video/videoUpload", "pageTitle": "Search" },
+  "videoUpload": { "renderPath": "video/videoUpload", "pageTitle": "Upload Video" },
   "videoEdit": { "renderPath": "video/videoEdit", "pageTitle": "Edit" },
   "videoRemove": { "renderPath": "video/videoRemove", "pageTitle": "Remove" },
 
