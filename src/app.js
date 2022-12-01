@@ -20,6 +20,7 @@ app.set('view engine', 'pug');
 
 /** Middleware */
 app.use(logger);
+app.use(express.urlencoded({ extended: true }));
 
 /** Router */
 app.use('/', globalRouter);

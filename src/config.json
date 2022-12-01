@@ -1,16 +1,16 @@
 {
-  "globalApp": { "path": "global/app", "pageTitle": "Home" },
-  "globalSearch": { "path": "global/search", "pageTitle": "Search" },
-  "globalJoin": { "path": "global/join", "pageTitle": "Join" },
-  "globalLogin": { "path": "global/Login", "pageTitle": "Login" },
+  "globalApp": { "renderPath": "global/app", "pageTitle": "Home" },
+  "globalSearch": { "renderPath": "global/search", "pageTitle": "Search" },
+  "globalJoin": { "renderPath": "global/join", "pageTitle": "Join" },
+  "globalLogin": { "renderPath": "global/Login", "pageTitle": "Login" },
 
-  "videoWatch": { "path": "video/videoWatch", "pageTitle": "Watch" },
-  "videoUpload": { "path": "video/videoUpload", "pageTitle": "Search" },
-  "videoEdit": { "path": "video/videoEdit", "pageTitle": "Edit" },
-  "videoRemove": { "path": "video/videoRemove", "pageTitle": "Remove" },
+  "videoWatch": { "renderPath": "video/videoWatch", "pageTitle": "Watch" },
+  "videoUpload": { "renderPath": "video/videoUpload", "pageTitle": "Search" },
+  "videoEdit": { "renderPath": "video/videoEdit", "pageTitle": "Edit" },
+  "videoRemove": { "renderPath": "video/videoRemove", "pageTitle": "Remove" },
 
-  "userWatch": { "path": "user/userWatch", "pageTitle": "userWatch" },
-  "userLogout": { "path": "user/userLogout", "pageTitle": "userLogout" },
-  "userEdit": { "path": "user/userEdit", "pageTitle": "userEdit" },
-  "userRemove": { "path": "user/userRemove", "pageTitle": "userRemove" }
+  "userWatch": { "renderPath": "user/userWatch", "pageTitle": "userWatch" },
+  "userLogout": { "renderPath": "user/userLogout", "pageTitle": "userLogout" },
+  "userEdit": { "renderPath": "user/userEdit", "pageTitle": "userEdit" },
+  "userRemove": { "renderPath": "user/userRemove", "pageTitle": "userRemove" }
 }

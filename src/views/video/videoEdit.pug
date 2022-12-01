@@ -1,4 +1,7 @@
 extends ../layout.pug 
 
 block content
-  h1 VideoEdit
+  h4 Change Title of #{video.title}
+  form(method="POST")
+    input(type="text" name="title" placeholder="Video Title" value=pageTitle required)
+    input(type="submit" value="Save")

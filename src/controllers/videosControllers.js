@@ -1,5 +1,5 @@
 import config from '../config.json';
-const data = { ...config };
+let data = { ...config };
 
 let videos = [
   { title: 'Video #1', rating: 5, comments: 4, createdAt: '2 minutes ago', views: 1, id: 1 },
@@ -7,29 +7,43 @@ let videos = [
   { title: 'Video #3', rating: 3, comments: 2, createdAt: '4 minutes ago', views: 39, id: 3 },
 ];
 
-/** global */
+/** get - global */
 const globalApp = (req, res) => {
-  res.render(data.globalApp.path, Object.assign({}, data.globalApp, { videos }));
+  res.render(data.globalApp.renderPath, Object.assign({}, data.globalApp, { videos }));
 };
 const globalSearch = (req, res) => {
-  res.render(data.globalSearch.path, data.globalSearch);
+  res.render(data.globalSearch.renderPath, data.globalSearch);
 };
 
-/** videos */
+/** get - video */
 const videoWatch = (req, res) => {
   const { id } = req.params;
   const video = videos[id - 1];
-  console.log(Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
-  res.render(data.videoWatch.path, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
+
+  res.render(data.videoWatch.renderPath, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
 };
 const videoUpload = (req, res) => {
-  res.render(data.videoUpload.path, data.videoUpload);
+  res.render(data.videoUpload.renderPath, data.videoUpload);
 };
 const videoEdit = (req, res) => {
-  res.render(data.videoEdit.path, data.videoEdit);
+  const { id } = req.params;
+  const video = videos[id - 1];
+
+  res.render(data.videoEdit.renderPath, Object.assign({}, data.videoEdit, { pageTitle: `Edit ${video.title}` }, { video }));
 };
 const videoRemove = (req, res) => {
-  res.render(data.videoRemove.path, data.videoRemove);
+  res.render(data.videoRemove.renderPath, data.videoRemove);
 };
 
-export { globalApp, globalSearch, videoUpload, videoWatch, videoEdit, videoRemove };
+/** POST - video */
+const postVideoEdit = (req, res) => {
+  const { id } = req.params;
+  const video = videos[id - 1];
+  const reqBody = req.body;
+  const title = reqBody.pageTitle;
+
+  video.title = title;
+  res.redirect(`/videos/${id}`);
+};
+
+export { globalApp, globalSearch, videoUpload, videoWatch, videoEdit, videoRemove, postVideoEdit };
