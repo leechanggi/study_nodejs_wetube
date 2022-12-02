@@ -1,5 +1,5 @@
 {
-  "globalApp": { "renderPath": "global/app", "pageTitle": "Home" },
+  "globalHome": { "renderPath": "global/home", "pageTitle": "Home" },
   "globalSearch": { "renderPath": "global/search", "pageTitle": "Search" },
   "globalJoin": { "renderPath": "global/join", "pageTitle": "Join" },
   "globalLogin": { "renderPath": "global/Login", "pageTitle": "Login" },
