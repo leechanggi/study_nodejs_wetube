@@ -43,17 +43,17 @@ const videoRemove = (req, res) => {
 /** POST - video */
 const postVideoUpload = async (req, res) => {
   const { title, description, hashtags } = req.body;
-  await Video.create({
-    title,
-    description,
-    createdAt: Date.now(),
-    hashtags: hashtags.split(',').map(word => `#${word}`),
-    meta: {
-      views: 0,
-      rating: 0,
-    },
-  });
-  res.redirect('/');
+  try {
+    await Video.create({
+      title,
+      description,
+      hashtags: hashtags.split(',').map(word => `#${word}`),
+    });
+    res.redirect('/');
+  } catch (error) {
+    console.log(error);
+    return res.render(data.videoUpload.renderPath, Object.assign({}, ...data.videoUpload, { errMessage: error._message }));
+  }
 };
 const postVideoEdit = (req, res) => {
   const { id } = req.params;

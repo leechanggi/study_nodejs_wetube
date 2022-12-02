@@ -2,6 +2,8 @@ extends ../layout.pug
 
 block content
   h4 Hello from upload.
+  if errMessage
+    span=errMessage
   form(method="POST" action="/videos/upload")
     input(type="text" name="title" placeholder="Title" required)
     input(type="text" name="description" placeholder="Description" required)
