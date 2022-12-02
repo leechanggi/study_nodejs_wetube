@@ -51,7 +51,7 @@ const postVideoUpload = async (req, res) => {
     });
     res.redirect('/');
   } catch (error) {
-    console.log(error);
+    console.log(Object.assign({}, ...data.videoUpload, { errMessage: error._message }));
     return res.render(data.videoUpload.renderPath, Object.assign({}, ...data.videoUpload, { errMessage: error._message }));
   }
 };
