@@ -12,5 +12,7 @@
   "userWatch": { "renderPath": "user/userWatch", "pageTitle": "userWatch" },
   "userLogout": { "renderPath": "user/userLogout", "pageTitle": "userLogout" },
   "userEdit": { "renderPath": "user/userEdit", "pageTitle": "userEdit" },
-  "userRemove": { "renderPath": "user/userRemove", "pageTitle": "userRemove" }
+  "userRemove": { "renderPath": "user/userRemove", "pageTitle": "userRemove" },
+
+  "error404": { "renderPath": "404", "pageTitle": "Video not found" }
 }

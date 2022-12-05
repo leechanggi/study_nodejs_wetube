@@ -27,8 +27,24 @@ const globalSearch = (req, res) => {
 };
 
 /** get - video */
-const videoWatch = (req, res) => {
-  return res.render(data.videoWatch.renderPath, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }));
+const videoWatch = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (video) {
+    return res.render(data.videoWatch.renderPath, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
+  } else {
+    return res.render(data.error404.renderPath, Object.assign({}, data.error404));
+  }
+
+  // try {
+  //   const { id } = req.params;
+  //   const video = await Video.findById(id);
+  //   console.log(Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
+  //   return res.render(data.videoWatch.renderPath, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
+  // } catch (error) {
+  //   console.log({ errMessage: error._message });
+  //   res.render(data.error404.renderPath, Object.assign({}, data.error404));
+  // }
 };
 const videoUpload = (req, res) => {
   return res.render(data.videoUpload.renderPath, data.videoUpload);
@@ -47,7 +63,7 @@ const postVideoUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags: hashtags.split(',').map(word => `#${word}`),
+      hashtags: hashtags.split(',').map(word => `#${word.trim()}`),
     });
     res.redirect('/');
   } catch (error) {
