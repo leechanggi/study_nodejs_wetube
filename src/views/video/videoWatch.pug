@@ -1,7 +1,9 @@
 extends ../layout.pug 
 
 block content
-  p=video.description
-  small=video.createdAt
-  br
+  div
+    p=video.description
+    small=video.createdAt
   a(href=`${video.id}/edit`) Edit Video &rarr;
+  br
+  a(href=`${video.id}/remove`) Delete Video &rarr;

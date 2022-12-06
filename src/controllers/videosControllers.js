@@ -14,7 +14,7 @@ let data = { ...config };
 /** Promise */
 const globalHome = async (req, res) => {
   try {
-    const videos = await VideoModel.find({});
+    const videos = await VideoModel.find({}).sort({ createdAt: 'desc' });
     console.log(videos);
     return res.render(data.globalHome.renderPath, Object.assign({}, data.globalHome, { videos }));
   } catch (error) {
@@ -49,8 +49,10 @@ const videoEdit = async (req, res) => {
   return res.render(data.videoEdit.renderPath, Object.assign({}, data.videoEdit, { pageTitle: `Edit ${video.title}` }, { video }));
 };
 
-const videoRemove = (req, res) => {
-  return res.render(data.videoRemove.renderPath, data.videoRemove);
+const videoRemove = async (req, res) => {
+  const { id } = req.params;
+  await VideoModel.findByIdAndDelete(id);
+  return res.redirect('/');
 };
 
 /** POST - video */
@@ -60,7 +62,7 @@ const postVideoUpload = async (req, res) => {
     await VideoModel.create({
       title,
       description,
-      hashtags: hashtags,
+      hashtags: VideoModel.formatHashtags(hashtags),
     });
     res.redirect('/');
   } catch (error) {
@@ -80,7 +82,7 @@ const postVideoEdit = async (req, res) => {
   await VideoModel.findByIdAndUpdate(id, {
     title,
     description,
-    hashtags: hashtags,
+    hashtags: VideoModel.formatHashtags(hashtags),
   });
   await video.save();
   return res.redirect(`/videos/${id}`);
