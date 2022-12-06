@@ -21,6 +21,7 @@ const globalHome = async (req, res) => {
     return res.render('server-error', { error });
   }
 };
+
 const globalSearch = (req, res) => {
   return res.render(data.globalSearch.renderPath, data.globalSearch);
 };
@@ -34,9 +35,11 @@ const videoWatch = async (req, res) => {
   }
   return res.render(data.videoWatch.renderPath, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
 };
+
 const videoUpload = (req, res) => {
   return res.render(data.videoUpload.renderPath, data.videoUpload);
 };
+
 const videoEdit = async (req, res) => {
   const { id } = req.params;
   const video = await VideoModel.findById(id);
@@ -45,6 +48,7 @@ const videoEdit = async (req, res) => {
   }
   return res.render(data.videoEdit.renderPath, Object.assign({}, data.videoEdit, { pageTitle: `Edit ${video.title}` }, { video }));
 };
+
 const videoRemove = (req, res) => {
   return res.render(data.videoRemove.renderPath, data.videoRemove);
 };
@@ -56,7 +60,7 @@ const postVideoUpload = async (req, res) => {
     await VideoModel.create({
       title,
       description,
-      hashtags: hashtags.split(',').map(word => (word.startsWith('#') ? word : `#${word}`)),
+      hashtags: hashtags,
     });
     res.redirect('/');
   } catch (error) {
@@ -64,18 +68,19 @@ const postVideoUpload = async (req, res) => {
     return res.render(data.videoUpload.renderPath, Object.assign({}, ...data.videoUpload, { errMessage: error._message }));
   }
 };
+
 const postVideoEdit = async (req, res) => {
   const { id } = req.params;
-  const video = await VideoModel.findById(id);
+  const video = await VideoModel.exists({ _id: id });
   const { title, description, hashtags } = req.body;
-  console.log(req.body);
   if (!video) {
     return res.render(data.error404.renderPath, Object.assign({}, data.error404));
   }
+
   await VideoModel.findByIdAndUpdate(id, {
     title,
     description,
-    hashtags: hashtags.split(',').map(word => (word.startsWith('#') ? word : `#${word}`)),
+    hashtags: hashtags,
   });
   await video.save();
   return res.redirect(`/videos/${id}`);
