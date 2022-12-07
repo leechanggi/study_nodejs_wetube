@@ -1,5 +1,6 @@
 import VideoModel from '../models/video';
 import config from '../config.json';
+
 let data = { ...config };
 
 /** get - global */
@@ -22,8 +23,15 @@ const globalHome = async (req, res) => {
   }
 };
 
-const globalSearch = (req, res) => {
-  return res.render(data.globalSearch.renderPath, data.globalSearch);
+const globalSearch = async (req, res) => {
+  const { keyword } = req.query;
+  let videos = [];
+  if (keyword) {
+    videos = await VideoModel.find({
+      title: new RegExp(keyword, 'i'),
+    });
+  }
+  return res.render(data.globalSearch.renderPath, Object.assign({}, data.globalSearch, { videos }, { keyword }));
 };
 
 /** get - video */
