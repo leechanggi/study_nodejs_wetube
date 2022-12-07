@@ -3,27 +3,26 @@ import config from '../config.json';
 
 let data = { ...config };
 
-/** get - global */
+/** get - root */
 /** Callback */
-// const globalHome = (req, res) => {
+// const rootHome = (req, res) => {
 //   Video.find({}, (err, doc) => {
 //     const Video = doc;
-//     res.render(data.globalHome.renderPath, Object.assign({}, data.globalHome, { videos: { ...Video } }));
+//     res.render(data.rootHome.renderPath, Object.assign({}, data.rootHome, { videos: { ...Video } }));
 //   });
 // };
 
 /** Promise */
-const globalHome = async (req, res) => {
+const rootHome = async (req, res) => {
   try {
     const videos = await VideoModel.find({}).sort({ createdAt: 'desc' });
-    console.log(videos);
-    return res.render(data.globalHome.renderPath, Object.assign({}, data.globalHome, { videos }));
+    return res.render(data.rootHome.renderPath, Object.assign({}, data.rootHome, { videos }));
   } catch (error) {
     return res.render('server-error', { error });
   }
 };
 
-const globalSearch = async (req, res) => {
+const rootSearch = async (req, res) => {
   const { keyword } = req.query;
   let videos = [];
   if (keyword) {
@@ -31,7 +30,7 @@ const globalSearch = async (req, res) => {
       title: new RegExp(keyword, 'i'),
     });
   }
-  return res.render(data.globalSearch.renderPath, Object.assign({}, data.globalSearch, { videos }, { keyword }));
+  return res.render(data.rootSearch.renderPath, Object.assign({}, data.rootSearch, { videos }, { keyword }));
 };
 
 /** get - video */
@@ -72,9 +71,8 @@ const postVideoUpload = async (req, res) => {
       description,
       hashtags: VideoModel.formatHashtags(hashtags),
     });
-    res.redirect('/');
+    return res.redirect('/');
   } catch (error) {
-    console.log(Object.assign({}, ...data.videoUpload, { errMessage: error._message }));
     return res.render(data.videoUpload.renderPath, Object.assign({}, ...data.videoUpload, { errMessage: error._message }));
   }
 };
@@ -96,4 +94,4 @@ const postVideoEdit = async (req, res) => {
   return res.redirect(`/videos/${id}`);
 };
 
-export { globalHome, globalSearch, videoUpload, videoWatch, videoEdit, videoRemove, postVideoUpload, postVideoEdit };
+export { rootHome, rootSearch, videoUpload, videoWatch, videoEdit, videoRemove, postVideoUpload, postVideoEdit };

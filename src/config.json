@@ -1,8 +1,8 @@
 {
-  "globalHome": { "renderPath": "global/home", "pageTitle": "Home" },
-  "globalSearch": { "renderPath": "global/search", "pageTitle": "Search" },
-  "globalJoin": { "renderPath": "global/join", "pageTitle": "Join" },
-  "globalLogin": { "renderPath": "global/Login", "pageTitle": "Login" },
+  "rootHome": { "renderPath": "root/home", "pageTitle": "Home" },
+  "rootSearch": { "renderPath": "root/search", "pageTitle": "Search" },
+  "rootJoin": { "renderPath": "root/join", "pageTitle": "Create Account" },
+  "rootLogin": { "renderPath": "root/login", "pageTitle": "Login" },
 
   "videoWatch": { "renderPath": "video/videoWatch", "pageTitle": "Watch" },
   "videoUpload": { "renderPath": "video/videoUpload", "pageTitle": "Upload Video" },
