@@ -27,19 +27,23 @@ const userWatch = (req, res) => {
 
 /** POST - root */
 const postRootJoin = async (req, res) => {
-  const { username, email, password, name, location } = req.body;
-  try {
-    await UserModel.create({
-      username,
-      email,
-      password,
-      name,
-      location,
-    });
-    return res.redirect('/login');
-  } catch (error) {
-    return res.render(data.rootJoin.renderPath, Object.assign({}, ...data.rootJoin), { errMessage: error._message });
+  const { username, email, password, password2, name, location } = req.body;
+  if (password !== password2) {
+    console.log(Object.assign({}, data.rootJoin, { errorMessage: 'Password confirmation does not match.' }));
+    return res.render(data.rootJoin.renderPath, Object.assign({}, data.rootJoin, { errorMessage: 'Password confirmation does not match.' }));
   }
+  const exists = await UserModel.exists({ $or: [{ username }, { email }] });
+  if (exists) {
+    return res.render(data.rootJoin.renderPath, Object.assign({}, data.rootJoin, { errorMessage: 'This username/email is already taken.' }));
+  }
+  await UserModel.create({
+    username,
+    email,
+    password,
+    name,
+    location,
+  });
+  return res.redirect('/login');
 };
 
 export { rootJoin, rootLogin, userEdit, userRemove, userLogout, userWatch, postRootJoin };

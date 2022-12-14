@@ -1,10 +1,13 @@
 extends ../layout.pug 
 
 block content
+  if errMessage
+    span=errMessage
   form(method="POST" action="/join")
-    input(type="text" name="username" placeholder="username")
-    input(type="text" name="email" placeholder="email")
-    input(type="text" name="name" placeholder="id")
-    input(type="password" name="password" placeholder="password")
-    input(type="text" name="location" placeholder="location")
+    input(type="text" name="username" placeholder="Username" require)
+    input(type="text" name="email" placeholder="Email" require)
+    input(type="text" name="name" placeholder="Id" require)
+    input(type="password" name="password1" placeholder="Password" require)
+    input(type="password" name="password2" placeholder="Confirm Password" require)
+    input(type="text" name="location" placeholder="Location")
     input(type="submit" value="Join")
