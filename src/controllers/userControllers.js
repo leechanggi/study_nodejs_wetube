@@ -49,4 +49,8 @@ const postRootJoin = async (req, res) => {
   }
 };
 
-export { rootJoin, rootLogin, userEdit, userRemove, userLogout, userWatch, postRootJoin };
+const postRootLogin = (req, res) => {
+  return res.render(data.rootLogin.renderPath, data.rootLogin);
+};
+
+export { rootJoin, rootLogin, userEdit, userRemove, userLogout, userWatch, postRootJoin, postRootLogin };

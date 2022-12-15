@@ -1,4 +1,10 @@
 extends ../layout.pug 
 
 block content
-  h1 Login
+  form(method="POST")
+    input(type="text" name="name" placeholder="Id" require)
+    input(type="password" name="password" placeholder="Password" require)
+    input(type="submit" value="Login")
+  div 
+    span Don't have an account ?
+    a(href="/join") Create one now &rarr;
