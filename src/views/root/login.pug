@@ -1,10 +1,14 @@
 extends ../layout.pug 
 
 block content
-  form(method="POST")
+  if errorMessage
+    span=errorMessage
+  form(method="POST" action="/login")
     input(type="text" name="name" placeholder="Id" require)
     input(type="password" name="password" placeholder="Password" require)
     input(type="submit" value="Login")
+  hr
   div 
     span Don't have an account ?
+    br
     a(href="/join") Create one now &rarr;

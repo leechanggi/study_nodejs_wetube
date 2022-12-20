@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs';
+
 import UserModel from '../models/User';
 import config from '../config.json';
 
@@ -49,8 +51,19 @@ const postRootJoin = async (req, res) => {
   }
 };
 
-const postRootLogin = (req, res) => {
-  return res.render(data.rootLogin.renderPath, data.rootLogin);
+const postRootLogin = async (req, res) => {
+  const { name, password } = req.body;
+  const user = await UserModel.findOne({ name });
+  if (!name) {
+    return res.status(400).render(data.rootLogin.renderPath, Object.assign({}, data.rootLogin, { errorMessage: 'This name does not exists.' }));
+  }
+
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) {
+    return res.status(400).render(data.rootLogin.renderPath, Object.assign({}, data.rootLogin, { errorMessage: 'Wrong password' }));
+  }
+  console.log('LOG USER IN! COMMING SOON!');
+  return res.redirect('/');
 };
 
 export { rootJoin, rootLogin, userEdit, userRemove, userLogout, userWatch, postRootJoin, postRootLogin };
