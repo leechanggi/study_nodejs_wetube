@@ -26,6 +26,18 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  req.sessionStore.all((error, session) => {
+    console.log(session);
+    next();
+  });
+});
+
+app.get('/add-one', (req, res, next) => {
+  req.session.couter += 1;
+  return res.send(`${req.session.id}\n${req.session.couter}`);
+});
+
 /** Router */
 app.use('/', rootRouter);
 app.use('/videos', videosRouter);
