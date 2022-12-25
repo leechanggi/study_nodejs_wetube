@@ -1,10 +1,12 @@
 import express from 'express';
 import morgan from 'morgan';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 import rootRouter from './routers/rootRouter';
 import userRouter from './routers/userRouter';
 import videosRouter from './routers/videosRouter';
+import { localsMiddleware } from './middlewares';
 
 const app = express();
 const logger = morgan('dev');
@@ -19,24 +21,18 @@ app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    secret: 'Hello!',
-    resave: true,
-    saveUninitialized: true,
-    // cookie: { secure: true },
+    secret: process.env.COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      // maxAge: 86400000,
+      maxAge: 600000,
+    },
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })
 );
 
-app.use((req, res, next) => {
-  req.sessionStore.all((error, session) => {
-    console.log(session);
-    next();
-  });
-});
-
-app.get('/add-one', (req, res, next) => {
-  req.session.couter += 1;
-  return res.send(`${req.session.id}\n${req.session.couter}`);
-});
+app.use(localsMiddleware);
 
 /** Router */
 app.use('/', rootRouter);

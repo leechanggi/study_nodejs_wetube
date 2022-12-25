@@ -27,6 +27,23 @@ const userWatch = (req, res) => {
   res.render(data.userWatch.renderPath, data.userWatch);
 };
 
+/** githubLogin */
+const startGithubLogin = (req, res) => {
+  const baseUrl = 'https://github.com/login/oauth/authorize';
+  const config = {
+    client_id: 'c22b5f8397f38e2e8dc1',
+    allow_signup: false,
+    scope: 'read:user user:email',
+  };
+  const params = new URLSearchParams(config);
+  const redirectUrl = `${baseUrl}?${params}`;
+  return res.redirect(redirectUrl);
+};
+
+const finishGithubLogin = (req, res) => {
+  res.render(data.rootLogin.renderPath, data.rootLogin);
+};
+
 /** POST - root */
 const postRootJoin = async (req, res) => {
   const { username, email, password, password2, name, location } = req.body;
@@ -62,8 +79,10 @@ const postRootLogin = async (req, res) => {
   if (!ok) {
     return res.status(400).render(data.rootLogin.renderPath, Object.assign({}, data.rootLogin, { errorMessage: 'Wrong password' }));
   }
-  console.log('LOG USER IN! COMMING SOON!');
+
+  req.session.loggedIn = true;
+  req.session.user = user;
   return res.redirect('/');
 };
 
-export { rootJoin, rootLogin, userEdit, userRemove, userLogout, userWatch, postRootJoin, postRootLogin };
+export { rootJoin, rootLogin, userEdit, userRemove, userLogout, userWatch, startGithubLogin, finishGithubLogin, postRootJoin, postRootLogin };
