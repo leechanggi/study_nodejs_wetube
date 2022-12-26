@@ -22,7 +22,8 @@ const userRemove = (req, res) => {
   res.render(data.userRemove.renderPath, data.userRemove);
 };
 const userLogout = (req, res) => {
-  res.render(data.userLogout.renderPath, data.userLogout);
+  req.session.destroy();
+  return res.redirect('/');
 };
 const userWatch = (req, res) => {
   res.render(data.userWatch.renderPath, data.userWatch);
