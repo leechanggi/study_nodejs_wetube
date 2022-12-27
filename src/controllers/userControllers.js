@@ -18,13 +18,20 @@ const rootLogin = (req, res) => {
 const userEdit = (req, res) => {
   res.render(page.userEdit.renderPath, page.userEdit);
 };
+
+const userEditPassword = (req, res) => {
+  res.render(page.userEditPassword.renderPath, page.userEditPassword);
+};
+
 const userRemove = (req, res) => {
   res.render(page.userRemove.renderPath, page.userRemove);
 };
+
 const userLogout = (req, res) => {
   req.session.destroy();
   return res.redirect('/');
 };
+
 const userWatch = (req, res) => {
   res.render(page.userWatch.renderPath, page.userWatch);
 };
@@ -96,8 +103,9 @@ const finishGithubLogin = async (req, res) => {
         name: userData.login,
         location: userData.location,
         socialOnly: true,
-        avatarUrl: userData.avatarUrl,
+        avatarUrl: userData.avatar_url,
       });
+      console.log(userData);
     }
     req.session.loggedIn = true;
     req.session.user = user;
@@ -148,4 +156,53 @@ const postRootLogin = async (req, res) => {
   return res.redirect('/');
 };
 
-export { rootJoin, rootLogin, userEdit, userRemove, userLogout, userWatch, startGithubLogin, finishGithubLogin, postRootJoin, postRootLogin };
+/** POST - user */
+const postUserEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id, username: sessionUsername, email: sessionEmail },
+    },
+    body: { username, email, name, location },
+  } = req;
+
+  const usernameExists = username != sessionUsername ? await UserModel.exists({ username }) : undefined;
+  const emailExists = email != sessionEmail ? await UserModel.exists({ email }) : undefined;
+  if (usernameExists || emailExists) {
+    return res
+      .status(400)
+      .render(
+        page.userEdit.renderPath,
+        Object.assign(
+          {},
+          ...page.userEdit.pageTitle,
+          { usernameErrorMessage: usernameExists ? 'This username is already taken' : 0 },
+          { emailErrorMessage: emailExists ? 'This email is already taken' : 0 }
+        )
+      );
+  }
+
+  const updatedUser = await UserModel.findOneAndUpdate(_id, { username, email, name, location }, { new: true });
+
+  req.session.user = updatedUser;
+  return res.redirect('/user/edit');
+};
+
+const postUserEditPassword = async (req, res) => {
+  res.render(page.userEditPassword.renderPath, page.userEditPassword);
+};
+
+export {
+  rootJoin,
+  rootLogin,
+  userEdit,
+  userEditPassword,
+  userRemove,
+  userLogout,
+  userWatch,
+  startGithubLogin,
+  finishGithubLogin,
+  postRootJoin,
+  postRootLogin,
+  postUserEdit,
+  postUserEditPassword,
+};

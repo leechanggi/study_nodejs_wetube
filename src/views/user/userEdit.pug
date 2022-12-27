@@ -1,4 +1,15 @@
 extends ../layout.pug 
 
 block content
-  h1 UserEdit
+  form(method="POST" action="/user/edit")
+    input(type="text" name="username" placeholder="Username" value=user.username require)
+    if usernameErrorMessage
+      span=usernameErrorMessage
+    input(type="text" name="email" placeholder="Email" value=user.email require)
+    if emailErrorMessage
+      span=emailErrorMessage
+    input(type="text" name="name" placeholder="Id" value=user.name require)
+    input(type="text" name="location" value=user.location placeholder="Location")
+    input(type="submit" value="Update Profile")
+  hr
+  a(href="/user/editpassword") Change Password &rarr;
