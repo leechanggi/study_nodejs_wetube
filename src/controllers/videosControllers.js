@@ -1,14 +1,14 @@
 import VideoModel from '../models/video';
-import config from '../config.json';
+import routers from '../routers.json';
 
-let data = { ...config };
+let routers = { ...routers };
 
 /** get - root */
 /** Callback */
 // const rootHome = (req, res) => {
 //   Video.find({}, (err, doc) => {
 //     const Video = doc;
-//     res.render(data.rootHome.renderPath, Object.assign({}, data.rootHome, { videos: { ...Video } }));
+//     res.render(routers.rootHome.renderPath, Object.assign({}, routers.rootHome, { videos: { ...Video } }));
 //   });
 // };
 
@@ -16,7 +16,7 @@ let data = { ...config };
 const rootHome = async (req, res) => {
   try {
     const videos = await VideoModel.find({}).sort({ createdAt: 'desc' });
-    return res.render(data.rootHome.renderPath, Object.assign({}, data.rootHome, { videos }));
+    return res.render(routers.rootHome.renderPath, Object.assign({}, routers.rootHome, { videos }));
   } catch (error) {
     return res.render('server-error', { error });
   }
@@ -30,7 +30,7 @@ const rootSearch = async (req, res) => {
       title: new RegExp(keyword, 'i'),
     });
   }
-  return res.render(data.rootSearch.renderPath, Object.assign({}, data.rootSearch, { videos }, { keyword }));
+  return res.render(routers.rootSearch.renderPath, Object.assign({}, routers.rootSearch, { videos }, { keyword }));
 };
 
 /** get - video */
@@ -38,22 +38,22 @@ const videoWatch = async (req, res) => {
   const { id } = req.params;
   const video = await VideoModel.findById(id);
   if (!video) {
-    return res.render(data.error404.renderPath, Object.assign({}, data.error404));
+    return res.render(routers.error404.renderPath, Object.assign({}, routers.error404));
   }
-  return res.render(data.videoWatch.renderPath, Object.assign({}, data.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
+  return res.render(routers.videoWatch.renderPath, Object.assign({}, routers.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
 };
 
 const videoUpload = (req, res) => {
-  return res.render(data.videoUpload.renderPath, data.videoUpload);
+  return res.render(routers.videoUpload.renderPath, routers.videoUpload);
 };
 
 const videoEdit = async (req, res) => {
   const { id } = req.params;
   const video = await VideoModel.findById(id);
   if (!video) {
-    return res.render(data.error404.renderPath, Object.assign({}, data.error404));
+    return res.render(routers.error404.renderPath, Object.assign({}, routers.error404));
   }
-  return res.render(data.videoEdit.renderPath, Object.assign({}, data.videoEdit, { pageTitle: `Edit ${video.title}` }, { video }));
+  return res.render(routers.videoEdit.renderPath, Object.assign({}, routers.videoEdit, { pageTitle: `Edit ${video.title}` }, { video }));
 };
 
 const videoRemove = async (req, res) => {
@@ -73,7 +73,7 @@ const postVideoUpload = async (req, res) => {
     });
     return res.redirect('/');
   } catch (error) {
-    return res.render(data.videoUpload.renderPath, Object.assign({}, ...data.videoUpload, { errMessage: error._message }));
+    return res.render(routers.videoUpload.renderPath, Object.assign({}, ...routers.videoUpload, { errMessage: error._message }));
   }
 };
 
@@ -82,7 +82,7 @@ const postVideoEdit = async (req, res) => {
   const video = await VideoModel.exists({ _id: id });
   const { title, description, hashtags } = req.body;
   if (!video) {
-    return res.render(data.error404.renderPath, Object.assign({}, data.error404));
+    return res.render(routers.error404.renderPath, Object.assign({}, routers.error404));
   }
 
   await VideoModel.findByIdAndUpdate(id, {

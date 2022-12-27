@@ -2,31 +2,31 @@ import bcrypt from 'bcryptjs';
 import fetch from 'node-fetch';
 
 import UserModel from '../models/User';
-import config from '../config.json';
+import routers from '../routers.json';
 
-let data = { ...config };
+let routers = { ...routers };
 
 /** get - root */
 const rootJoin = (req, res) => {
-  res.render(data.rootJoin.renderPath, data.rootJoin);
+  res.render(routers.rootJoin.renderPath, routers.rootJoin);
 };
 const rootLogin = (req, res) => {
-  res.render(data.rootLogin.renderPath, data.rootLogin);
+  res.render(routers.rootLogin.renderPath, routers.rootLogin);
 };
 
 /** get - user */
 const userEdit = (req, res) => {
-  res.render(data.userEdit.renderPath, data.userEdit);
+  res.render(routers.userEdit.renderPath, routers.userEdit);
 };
 const userRemove = (req, res) => {
-  res.render(data.userRemove.renderPath, data.userRemove);
+  res.render(routers.userRemove.renderPath, routers.userRemove);
 };
 const userLogout = (req, res) => {
   req.session.destroy();
   return res.redirect('/');
 };
 const userWatch = (req, res) => {
-  res.render(data.userWatch.renderPath, data.userWatch);
+  res.render(routers.userWatch.renderPath, routers.userWatch);
 };
 
 /** githubLogin */
@@ -89,7 +89,6 @@ const finishGithubLogin = async (req, res) => {
 
     let user = await UserModel.findOne({ email: emailObj.email });
     if (!user) {
-      console.log(userData);
       user = await UserModel.create({
         username: userData.name || userData.login,
         email: emailObj.email,
@@ -112,11 +111,11 @@ const finishGithubLogin = async (req, res) => {
 const postRootJoin = async (req, res) => {
   const { username, email, password, password2, name, location } = req.body;
   if (password !== password2) {
-    return res.status(400).render(data.rootJoin.renderPath, Object.assign({}, data.rootJoin, { errorMessage: 'Password confirmation does not match.' }));
+    return res.status(400).render(routers.rootJoin.renderPath, Object.assign({}, routers.rootJoin, { errorMessage: 'Password confirmation does not match.' }));
   }
   const exists = await UserModel.exists({ $or: [{ username }, { email }] });
   if (exists) {
-    return res.status(400).render(data.rootJoin.renderPath, Object.assign({}, data.rootJoin, { errorMessage: 'This username/email is already taken.' }));
+    return res.status(400).render(routers.rootJoin.renderPath, Object.assign({}, routers.rootJoin, { errorMessage: 'This username/email is already taken.' }));
   }
   try {
     await UserModel.create({
@@ -128,7 +127,7 @@ const postRootJoin = async (req, res) => {
     });
     return res.redirect('/login');
   } catch (error) {
-    return res.render(data.rootJoin.renderPath, Object.assign({}, ...data.rootJoin, { errMessage: error._message }));
+    return res.render(routers.rootJoin.renderPath, Object.assign({}, ...routers.rootJoin, { errMessage: error._message }));
   }
 };
 
@@ -136,12 +135,12 @@ const postRootLogin = async (req, res) => {
   const { name, password } = req.body;
   const user = await UserModel.findOne({ name, socialOnly: false });
   if (!user) {
-    return res.status(400).render(data.rootLogin.renderPath, Object.assign({}, data.rootLogin, { errorMessage: 'This name does not exists.' }));
+    return res.status(400).render(routers.rootLogin.renderPath, Object.assign({}, routers.rootLogin, { errorMessage: 'This name does not exists.' }));
   }
 
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render(data.rootLogin.renderPath, Object.assign({}, data.rootLogin, { errorMessage: 'Wrong password' }));
+    return res.status(400).render(routers.rootLogin.renderPath, Object.assign({}, routers.rootLogin, { errorMessage: 'Wrong password' }));
   }
 
   req.session.loggedIn = true;
