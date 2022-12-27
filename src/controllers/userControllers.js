@@ -2,31 +2,31 @@ import bcrypt from 'bcryptjs';
 import fetch from 'node-fetch';
 
 import UserModel from '../models/User';
-import routers from '../routers.json';
+import pages from '../pages.json';
 
-let routers = { ...routers };
+let page = { ...pages };
 
 /** get - root */
 const rootJoin = (req, res) => {
-  res.render(routers.rootJoin.renderPath, routers.rootJoin);
+  res.render(page.rootJoin.renderPath, page.rootJoin);
 };
 const rootLogin = (req, res) => {
-  res.render(routers.rootLogin.renderPath, routers.rootLogin);
+  res.render(page.rootLogin.renderPath, page.rootLogin);
 };
 
 /** get - user */
 const userEdit = (req, res) => {
-  res.render(routers.userEdit.renderPath, routers.userEdit);
+  res.render(page.userEdit.renderPath, page.userEdit);
 };
 const userRemove = (req, res) => {
-  res.render(routers.userRemove.renderPath, routers.userRemove);
+  res.render(page.userRemove.renderPath, page.userRemove);
 };
 const userLogout = (req, res) => {
   req.session.destroy();
   return res.redirect('/');
 };
 const userWatch = (req, res) => {
-  res.render(routers.userWatch.renderPath, routers.userWatch);
+  res.render(page.userWatch.renderPath, page.userWatch);
 };
 
 /** githubLogin */
@@ -111,11 +111,11 @@ const finishGithubLogin = async (req, res) => {
 const postRootJoin = async (req, res) => {
   const { username, email, password, password2, name, location } = req.body;
   if (password !== password2) {
-    return res.status(400).render(routers.rootJoin.renderPath, Object.assign({}, routers.rootJoin, { errorMessage: 'Password confirmation does not match.' }));
+    return res.status(400).render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: 'Password confirmation does not match.' }));
   }
   const exists = await UserModel.exists({ $or: [{ username }, { email }] });
   if (exists) {
-    return res.status(400).render(routers.rootJoin.renderPath, Object.assign({}, routers.rootJoin, { errorMessage: 'This username/email is already taken.' }));
+    return res.status(400).render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: 'This username/email is already taken.' }));
   }
   try {
     await UserModel.create({
@@ -127,7 +127,7 @@ const postRootJoin = async (req, res) => {
     });
     return res.redirect('/login');
   } catch (error) {
-    return res.render(routers.rootJoin.renderPath, Object.assign({}, ...routers.rootJoin, { errMessage: error._message }));
+    return res.render(page.rootJoin.renderPath, Object.assign({}, ...page.rootJoin, { errMessage: error._message }));
   }
 };
 
@@ -135,12 +135,12 @@ const postRootLogin = async (req, res) => {
   const { name, password } = req.body;
   const user = await UserModel.findOne({ name, socialOnly: false });
   if (!user) {
-    return res.status(400).render(routers.rootLogin.renderPath, Object.assign({}, routers.rootLogin, { errorMessage: 'This name does not exists.' }));
+    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: 'This name does not exists.' }));
   }
 
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render(routers.rootLogin.renderPath, Object.assign({}, routers.rootLogin, { errorMessage: 'Wrong password' }));
+    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: 'Wrong password' }));
   }
 
   req.session.loggedIn = true;
