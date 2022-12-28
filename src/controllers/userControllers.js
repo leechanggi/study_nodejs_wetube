@@ -20,7 +20,10 @@ const userEdit = (req, res) => {
 };
 
 const userEditPassword = (req, res) => {
-  res.render(page.userEditPassword.renderPath, page.userEditPassword);
+  if (req.session.user.socialOnly === true) {
+    return res.redirect('/');
+  }
+  return res.render(page.userEditPassword.renderPath, page.userEditPassword);
 };
 
 const userRemove = (req, res) => {
@@ -97,15 +100,14 @@ const finishGithubLogin = async (req, res) => {
     let user = await UserModel.findOne({ email: emailObj.email });
     if (!user) {
       user = await UserModel.create({
-        username: userData.name || userData.login,
+        userid: userData.login,
         email: emailObj.email,
         password: '',
-        name: userData.login,
+        name: userData.name || userData.login,
         location: userData.location,
         socialOnly: true,
         avatarUrl: userData.avatar_url,
       });
-      console.log(userData);
     }
     req.session.loggedIn = true;
     req.session.user = user;
@@ -117,20 +119,23 @@ const finishGithubLogin = async (req, res) => {
 
 /** POST - root */
 const postRootJoin = async (req, res) => {
-  const { username, email, password, password2, name, location } = req.body;
+  const { userid, email, name, password, password2, location } = req.body;
   if (password !== password2) {
-    return res.status(400).render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: 'Password confirmation does not match.' }));
+    return res.status(400).render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: '비밀번호가 일치하지 않습니다.' }));
   }
-  const exists = await UserModel.exists({ $or: [{ username }, { email }] });
+  const exists = await UserModel.exists({ $or: [{ userid }, { email }] });
   if (exists) {
-    return res.status(400).render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: 'This username/email is already taken.' }));
+    return res
+      .status(400)
+      .render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: '이미 사용중인 아이디/이메일 입니다.' }));
   }
+
   try {
     await UserModel.create({
-      username,
+      userid,
       email,
-      password,
       name,
+      password,
       location,
     });
     return res.redirect('/login');
@@ -140,15 +145,15 @@ const postRootJoin = async (req, res) => {
 };
 
 const postRootLogin = async (req, res) => {
-  const { name, password } = req.body;
-  const user = await UserModel.findOne({ name, socialOnly: false });
+  const { userid, password } = req.body;
+  const user = await UserModel.findOne({ userid, socialOnly: false });
   if (!user) {
-    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: 'This name does not exists.' }));
+    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: '아이디가 존재하지 않습니다.' }));
   }
 
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: 'Wrong password' }));
+    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: '비밀번호가 일치하지 않습니다.' }));
   }
 
   req.session.loggedIn = true;
@@ -160,35 +165,65 @@ const postRootLogin = async (req, res) => {
 const postUserEdit = async (req, res) => {
   const {
     session: {
-      user: { _id, username: sessionUsername, email: sessionEmail },
+      user: { _id, userid: sessionUserid, email: sessionEmail, avatarUrl },
     },
-    body: { username, email, name, location },
+    body: { userid, email, name, location },
+    file,
   } = req;
 
-  const usernameExists = username != sessionUsername ? await UserModel.exists({ username }) : undefined;
+  console.log(file);
+
+  const useridExists = userid != sessionUserid ? await UserModel.exists({ userid }) : undefined;
   const emailExists = email != sessionEmail ? await UserModel.exists({ email }) : undefined;
-  if (usernameExists || emailExists) {
+  if (useridExists || emailExists) {
     return res
       .status(400)
       .render(
         page.userEdit.renderPath,
         Object.assign(
           {},
-          ...page.userEdit.pageTitle,
-          { usernameErrorMessage: usernameExists ? 'This username is already taken' : 0 },
-          { emailErrorMessage: emailExists ? 'This email is already taken' : 0 }
+          page.userEdit.pageTitle,
+          { useridErrorMessage: useridExists ? '변경하고자 하는 아이디는 이미 사용중입니다.' : 0 },
+          { emailErrorMessage: emailExists ? '변경하고자 하는 이메일은 이미 사용중입니다.' : 0 }
         )
       );
   }
 
-  const updatedUser = await UserModel.findOneAndUpdate(_id, { username, email, name, location }, { new: true });
+  const updatedUser = await UserModel.findOneAndUpdate(
+    _id,
+    { userid, email, name, location, avatarUrl: file ? file.path : avatarUrl },
+    { new: true }
+  );
 
   req.session.user = updatedUser;
   return res.redirect('/user/edit');
 };
 
 const postUserEditPassword = async (req, res) => {
-  res.render(page.userEditPassword.renderPath, page.userEditPassword);
+  const {
+    session: {
+      user: { _id, password },
+    },
+    body: { oldPassword, newPassword, newPassword2 },
+  } = req;
+  const user = await UserModel.findById(_id);
+  const ok = await bcrypt.compare(oldPassword, password);
+
+  if (!ok) {
+    return res
+      .status(400)
+      .render(page.userEditPassword.renderPath, Object.assign({}, page.userEditPassword, { errorMessage: '기존 비밀번호가 일치하지 않습니다.' }));
+  }
+
+  if (newPassword !== newPassword2) {
+    return res
+      .status(400)
+      .render(page.userEditPassword.renderPath, Object.assign({}, page.userEditPassword, { errorMessage: '새로운 비밀번호가 일치하지 않습니다.' }));
+  }
+
+  user.password = newPassword;
+  await user.save();
+  return res.redirect('/user/logout');
 };
 
 export {

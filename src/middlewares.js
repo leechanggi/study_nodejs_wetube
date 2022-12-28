@@ -1,3 +1,5 @@
+import multer from 'multer';
+
 const localsMiddleware = (req, res, next) => {
   console.log(req.session);
   res.locals.siteName = 'Wetube';
@@ -23,4 +25,6 @@ const publicOnlyMiddleware = (req, res, next) => {
   }
 };
 
-export { localsMiddleware, protectorMiddleware, publicOnlyMiddleware };
+const multerMiddleware = multer({ dest: 'uploads/' });
+
+export { localsMiddleware, protectorMiddleware, publicOnlyMiddleware, multerMiddleware };

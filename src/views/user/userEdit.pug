@@ -1,15 +1,22 @@
 extends ../layout.pug 
 
 block content
-  form(method="POST" action="/user/edit")
-    input(type="text" name="username" placeholder="Username" value=user.username require)
-    if usernameErrorMessage
-      span=usernameErrorMessage
+  if (/(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi).test(user.avatarUrl)
+    img(src=`${user.avatarUrl}` width=100 height=100)
+  else
+    img(src="/" + user.avatarUrl width=100 height=100)
+  form(method="POST" action="/user/edit" enctype="multipart/form-data")
+    label(for="avatar") Avatar
+    input(type="file" name="avatar" id="avatar" accept="image/*")
+    input(type="text" name="userid" placeholder="ID" value=user.userid require)
+    if useridErrorMessage
+      span=useridErrorMessage
     input(type="text" name="email" placeholder="Email" value=user.email require)
     if emailErrorMessage
       span=emailErrorMessage
     input(type="text" name="name" placeholder="Id" value=user.name require)
     input(type="text" name="location" value=user.location placeholder="Location")
     input(type="submit" value="Update Profile")
-  hr
-  a(href="/user/editpassword") Change Password &rarr;
+  if !user.socialOnly
+    hr
+    a(href="/user/editpassword") Change Password &rarr;
