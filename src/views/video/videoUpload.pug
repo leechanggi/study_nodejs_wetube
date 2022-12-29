@@ -4,10 +4,10 @@ block content
   h4 Hello from upload.
   if errMessage
     span=errMessage
-  form(method="POST" action="/videos/upload")
+  form(method="POST" action="/videos/upload" enctype="multipart/form-data")
     label(for="video") Video File 
-    input(type="file" name="video" id="video" accept="video/*")
-  input(type="text" name="title" placeholder="Title" minlength=8 maxlength=16 required)
-  input(type="text" maxlength=24 name="description" placeholder="Description" required)
-  input(type="text" name="hashtags" placeholder="Hashtags, separated by comma" required)
-  input(type="submit" value="Upload Video")
+    input(type="file" name="video" id="video" accept="video/*" required)
+    input(type="text" name="title" placeholder="Title" minlength=8 maxlength=16 required)
+    input(type="text" maxlength=24 name="description" placeholder="Description" required)
+    input(type="text" name="hashtags" placeholder="Hashtags, separated by comma" required)
+    input(type="submit" value="Upload Video")

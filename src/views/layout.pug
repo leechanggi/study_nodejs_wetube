@@ -19,7 +19,9 @@ html(lang="ko")
             li
               a(href="/user/logout") Logout
             li
-              a(href="/user/edit") #{user.name}님의 Profile
+              a(href="/user/edit") #{user.name}님의 Edit Profile
+            li
+              a(href=`/user/${user._id}`) #{user.name}님의 Profile
             li
               a(href="/videos/upload") Upload Video
           li

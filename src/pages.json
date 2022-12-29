@@ -9,7 +9,7 @@
   "videoEdit": { "renderPath": "video/videoEdit", "pageTitle": "Edit" },
   "videoRemove": { "renderPath": "video/videoRemove", "pageTitle": "Remove" },
 
-  "userWatch": { "renderPath": "user/userWatch", "pageTitle": "userWatch" },
+  "userProfile": { "renderPath": "user/userProfile", "pageTitle": "userProfile" },
   "userLogout": { "renderPath": "user/userLogout", "pageTitle": "userLogout" },
   "userEdit": { "renderPath": "user/userEdit", "pageTitle": "userEdit" },
   "userEditPassword": { "renderPath": "user/userEditPassword", "pageTitle": "userEditPassword" },

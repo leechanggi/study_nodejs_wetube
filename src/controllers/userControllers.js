@@ -27,6 +27,7 @@ const userEditPassword = (req, res) => {
 };
 
 const userRemove = (req, res) => {
+  const { id } = req.params;
   res.render(page.userRemove.renderPath, page.userRemove);
 };
 
@@ -35,8 +36,8 @@ const userLogout = (req, res) => {
   return res.redirect('/');
 };
 
-const userWatch = (req, res) => {
-  res.render(page.userWatch.renderPath, page.userWatch);
+const userProfile = (req, res) => {
+  res.render(page.userProfile.renderPath, page.userProfile);
 };
 
 /** githubLogin */
@@ -121,13 +122,21 @@ const finishGithubLogin = async (req, res) => {
 const postRootJoin = async (req, res) => {
   const { userid, email, name, password, password2, location } = req.body;
   if (password !== password2) {
-    return res.status(400).render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: '비밀번호가 일치하지 않습니다.' }));
+    return res
+      .status(400)
+      .render(
+        page.rootJoin.renderPath,
+        Object.assign({}, page.rootJoin, { errorMessage: '비밀번호가 일치하지 않습니다.' })
+      );
   }
   const exists = await UserModel.exists({ $or: [{ userid }, { email }] });
   if (exists) {
     return res
       .status(400)
-      .render(page.rootJoin.renderPath, Object.assign({}, page.rootJoin, { errorMessage: '이미 사용중인 아이디/이메일 입니다.' }));
+      .render(
+        page.rootJoin.renderPath,
+        Object.assign({}, page.rootJoin, { errorMessage: '이미 사용중인 아이디/이메일 입니다.' })
+      );
   }
 
   try {
@@ -140,7 +149,10 @@ const postRootJoin = async (req, res) => {
     });
     return res.redirect('/login');
   } catch (error) {
-    return res.render(page.rootJoin.renderPath, Object.assign({}, ...page.rootJoin, { errMessage: error._message }));
+    return res.render(
+      page.rootJoin.renderPath,
+      Object.assign({}, ...page.rootJoin, { errMessage: error._message })
+    );
   }
 };
 
@@ -148,12 +160,22 @@ const postRootLogin = async (req, res) => {
   const { userid, password } = req.body;
   const user = await UserModel.findOne({ userid, socialOnly: false });
   if (!user) {
-    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: '아이디가 존재하지 않습니다.' }));
+    return res
+      .status(400)
+      .render(
+        page.rootLogin.renderPath,
+        Object.assign({}, page.rootLogin, { errorMessage: '아이디가 존재하지 않습니다.' })
+      );
   }
 
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
-    return res.status(400).render(page.rootLogin.renderPath, Object.assign({}, page.rootLogin, { errorMessage: '비밀번호가 일치하지 않습니다.' }));
+    return res
+      .status(400)
+      .render(
+        page.rootLogin.renderPath,
+        Object.assign({}, page.rootLogin, { errorMessage: '비밀번호가 일치하지 않습니다.' })
+      );
   }
 
   req.session.loggedIn = true;
@@ -210,15 +232,21 @@ const postUserEditPassword = async (req, res) => {
   const ok = await bcrypt.compare(oldPassword, password);
 
   if (!ok) {
-    return res
-      .status(400)
-      .render(page.userEditPassword.renderPath, Object.assign({}, page.userEditPassword, { errorMessage: '기존 비밀번호가 일치하지 않습니다.' }));
+    return res.status(400).render(
+      page.userEditPassword.renderPath,
+      Object.assign({}, page.userEditPassword, {
+        errorMessage: '기존 비밀번호가 일치하지 않습니다.',
+      })
+    );
   }
 
   if (newPassword !== newPassword2) {
-    return res
-      .status(400)
-      .render(page.userEditPassword.renderPath, Object.assign({}, page.userEditPassword, { errorMessage: '새로운 비밀번호가 일치하지 않습니다.' }));
+    return res.status(400).render(
+      page.userEditPassword.renderPath,
+      Object.assign({}, page.userEditPassword, {
+        errorMessage: '새로운 비밀번호가 일치하지 않습니다.',
+      })
+    );
   }
 
   user.password = newPassword;
@@ -233,7 +261,7 @@ export {
   userEditPassword,
   userRemove,
   userLogout,
-  userWatch,
+  userProfile,
   startGithubLogin,
   finishGithubLogin,
   postRootJoin,

@@ -30,7 +30,10 @@ const rootSearch = async (req, res) => {
       title: new RegExp(keyword, 'i'),
     });
   }
-  return res.render(page.rootSearch.renderPath, Object.assign({}, page.rootSearch, { videos }, { keyword }));
+  return res.render(
+    page.rootSearch.renderPath,
+    Object.assign({}, page.rootSearch, { videos }, { keyword })
+  );
 };
 
 /** get - video */
@@ -40,7 +43,10 @@ const videoWatch = async (req, res) => {
   if (!video) {
     return res.render(page.error404.renderPath, Object.assign({}, page.error404));
   }
-  return res.render(page.videoWatch.renderPath, Object.assign({}, page.videoWatch, { pageTitle: `Watch ${video.title}` }, { video }));
+  return res.render(
+    page.videoWatch.renderPath,
+    Object.assign({}, page.videoWatch, { pageTitle: `Watch ${video.title}` }, { video })
+  );
 };
 
 const videoUpload = (req, res) => {
@@ -53,7 +59,10 @@ const videoEdit = async (req, res) => {
   if (!video) {
     return res.render(page.error404.renderPath, Object.assign({}, page.error404));
   }
-  return res.render(page.videoEdit.renderPath, Object.assign({}, page.videoEdit, { pageTitle: `Edit ${video.title}` }, { video }));
+  return res.render(
+    page.videoEdit.renderPath,
+    Object.assign({}, page.videoEdit, { pageTitle: `Edit ${video.title}` }, { video })
+  );
 };
 
 const videoRemove = async (req, res) => {
@@ -64,16 +73,21 @@ const videoRemove = async (req, res) => {
 
 /** POST - video */
 const postVideoUpload = async (req, res) => {
+  const { path: videoUrl } = req.file;
   const { title, description, hashtags } = req.body;
   try {
     await VideoModel.create({
       title,
       description,
       hashtags: VideoModel.formatHashtags(hashtags),
+      videoUrl,
     });
     return res.redirect('/');
   } catch (error) {
-    return res.render(page.videoUpload.renderPath, Object.assign({}, ...page.videoUpload, { errMessage: error._message }));
+    return res.render(
+      page.videoUpload.renderPath,
+      Object.assign({}, ...page.videoUpload, { errMessage: error._message })
+    );
   }
 };
 
@@ -94,4 +108,13 @@ const postVideoEdit = async (req, res) => {
   return res.redirect(`/videos/${id}`);
 };
 
-export { rootHome, rootSearch, videoUpload, videoWatch, videoEdit, videoRemove, postVideoUpload, postVideoEdit };
+export {
+  rootHome,
+  rootSearch,
+  videoUpload,
+  videoWatch,
+  videoEdit,
+  videoRemove,
+  postVideoUpload,
+  postVideoEdit,
+};
