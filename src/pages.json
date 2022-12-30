@@ -15,5 +15,5 @@
   "userEditPassword": { "renderPath": "user/userEditPassword", "pageTitle": "userEditPassword" },
   "userRemove": { "renderPath": "user/userRemove", "pageTitle": "userRemove" },
 
-  "error404": { "renderPath": "404", "pageTitle": "Video not found" }
+  "error404": { "renderPath": "404", "pageTitle": "not found" }
 }

@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import fetch from 'node-fetch';
 
 import UserModel from '../models/User';
+import VideoModel from '../models/Video';
 import pages from '../pages.json';
 
 let page = { ...pages };
@@ -36,8 +37,19 @@ const userLogout = (req, res) => {
   return res.redirect('/');
 };
 
-const userProfile = (req, res) => {
-  res.render(page.userProfile.renderPath, page.userProfile);
+const userProfile = async (req, res) => {
+  const { id } = req.params;
+  const user = await UserModel.findById(id).populate('videos');
+  console.log(
+    Object.assign({}, page.userProfile, { pageTitle: `${user.name}님의 Profile` }, { user })
+  );
+  if (!user) {
+    res.status(404).render(page.error404.renderPath, Object.assign({}, page.error404));
+  }
+  res.render(
+    page.userProfile.renderPath,
+    Object.assign({}, page.userProfile, { pageTitle: `${user.name}님의 Profile` }, { user })
+  );
 };
 
 /** githubLogin */

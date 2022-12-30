@@ -1,4 +1,5 @@
-import VideoModel from '../models/video';
+import UserModel from '../models/User';
+import VideoModel from '../models/Video';
 import pages from '../pages.json';
 
 let page = { ...pages };
@@ -39,7 +40,7 @@ const rootSearch = async (req, res) => {
 /** get - video */
 const videoWatch = async (req, res) => {
   const { id } = req.params;
-  const video = await VideoModel.findById(id);
+  const video = await VideoModel.findById(id).populate('owner');
   if (!video) {
     return res.render(page.error404.renderPath, Object.assign({}, page.error404));
   }
@@ -55,9 +56,15 @@ const videoUpload = (req, res) => {
 
 const videoEdit = async (req, res) => {
   const { id } = req.params;
+  const {
+    user: { _id },
+  } = req.session;
   const video = await VideoModel.findById(id);
   if (!video) {
-    return res.render(page.error404.renderPath, Object.assign({}, page.error404));
+    return res.status(404).render(page.error404.renderPath, Object.assign({}, page.error404));
+  }
+  if (String(video.owner) !== String(_id)) {
+    return res.status(403).render(page.error404.renderPath, Object.assign({}, page.error404));
   }
   return res.render(
     page.videoEdit.renderPath,
@@ -73,15 +80,25 @@ const videoRemove = async (req, res) => {
 
 /** POST - video */
 const postVideoUpload = async (req, res) => {
-  const { path: videoUrl } = req.file;
-  const { title, description, hashtags } = req.body;
+  const {
+    file: { path: videoUrl },
+    body: { title, description, hashtags },
+    session: {
+      user: { _id },
+    },
+  } = req;
+
   try {
-    await VideoModel.create({
+    const newVideo = await VideoModel.create({
       title,
       description,
       hashtags: VideoModel.formatHashtags(hashtags),
       videoUrl,
+      owner: _id,
     });
+    const user = await UserModel.findById(_id);
+    user.videos.push(newVideo._id);
+    user.save();
     return res.redirect('/');
   } catch (error) {
     return res.render(

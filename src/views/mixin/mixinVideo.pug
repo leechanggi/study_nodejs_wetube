@@ -1,7 +1,7 @@
 mixin mixinVideo(video)
   div
     h3
-      a(href=`videos/${video.id}`)=video.title
+      a(href=`/videos/${video.id}`)=video.title
     p=video.description
     small=video.createdAt
     ul

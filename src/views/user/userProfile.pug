@@ -1,4 +1,9 @@
 extends ../layout.pug 
+include ../mixin/mixinVideo.pug
 
 block content
-  h1 UserProfile
+  h2 #{user.userid}님의 동영상
+  each video in user.videos
+    +mixinVideo(video)
+  else
+    div 데이터가 없습니다.

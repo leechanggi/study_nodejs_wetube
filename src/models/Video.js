@@ -10,6 +10,7 @@ const videoSchema = new mongoose.Schema({
     views: { type: Number, require: true, default: 0 },
     rating: { type: Number, require: true, default: 0 },
   },
+  owner: { type: mongoose.Schema.Types.ObjectId, require: true, ref: 'User' },
 });
 
 /** 모델이 만들어지기 이전 시점에 인터셉트 */
