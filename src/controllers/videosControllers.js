@@ -74,6 +74,16 @@ const videoEdit = async (req, res) => {
 
 const videoRemove = async (req, res) => {
   const { id } = req.params;
+  const {
+    user: { _id },
+  } = req.session;
+  const video = await VideoModel.findById(id);
+  if (!video) {
+    return res.status(404).render(page.error404.renderPath, Object.assign({}, page.error404));
+  }
+  if (String(video.owner) !== String(_id)) {
+    return res.status(403).render(page.error404.renderPath, Object.assign({}, page.error404));
+  }
   await VideoModel.findByIdAndDelete(id);
   return res.redirect('/');
 };
