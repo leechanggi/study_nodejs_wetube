@@ -144,4 +144,8 @@ dist
 # uploads
 /uploads
 
+# assets
+/assets/css
+/assets/js
+
 # End of https://www.toptal.com/developers/gitignore/api/node
