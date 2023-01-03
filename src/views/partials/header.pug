@@ -1,0 +1,24 @@
+header(id='header' class="header")
+  a(href="/" class="header_logo")
+    h1(class="header_logo_link") VIDEO TUBE
+      //- span(class="sr-only")=pageTitle
+  nav
+    ul 
+      li
+        a(href="/") Home
+      if !loggedIn
+        li
+          a(href="/join") Join
+        li
+          a(href="/login") Login
+      else 
+        li
+          a(href="/user/logout") Logout
+        li
+          a(href="/user/edit") #{user.name}님의 Edit Profile
+        li
+          a(href=`/user/${user._id}`) #{user.name}님의 Profile
+        li
+          a(href="/videos/upload") Upload Video
+      li
+        a(href="/search") Search

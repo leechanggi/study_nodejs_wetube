@@ -1,0 +1,7 @@
+#header {
+  $header: 'header';
+  width: 100%;
+  .#{$header}_logo {
+    font-size: 22px;
+  }
+}

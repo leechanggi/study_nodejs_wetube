@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import './db';
-import app from './app';
+import app from './server';
 
 const PORT = 4000;
 
