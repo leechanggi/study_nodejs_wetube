@@ -2,7 +2,7 @@ import '../scss/styles.scss';
 
 const hello = async () => {
   const x = await fetch('');
-  console.log('안녕 나는 웹팩이얌!');
+  console.log('웹팩 수정 중');
 };
 
 hello();
