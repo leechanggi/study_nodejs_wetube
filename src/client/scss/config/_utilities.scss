@@ -1,0 +1,17 @@
+$utilities: (
+  'font-family': (
+    property: 'font-family',
+    class: ff,
+    values: (
+      orbitron: 'Orbitron',
+    ),
+  ),
+  'font-weight': (
+    property: 'font-weight',
+    class: fw,
+    values: (
+      normal: 400,
+      bold: 700,
+    ),
+  ),
+);

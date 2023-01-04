@@ -1,24 +1,39 @@
 header(id='header' class="header")
-  a(href="/" class="header_logo")
-    h1(class="header_logo_link") VIDEO TUBE
-      //- span(class="sr-only")=pageTitle
-  nav
-    ul 
-      li
-        a(href="/") Home
-      if !loggedIn
-        li
-          a(href="/join") Join
-        li
-          a(href="/login") Login
-      else 
-        li
-          a(href="/user/logout") Logout
-        li
-          a(href="/user/edit") #{user.name}님의 Edit Profile
-        li
-          a(href=`/user/${user._id}`) #{user.name}님의 Profile
-        li
-          a(href="/videos/upload") Upload Video
-      li
-        a(href="/search") Search
+  div(class="header_content")
+    a(href="/" class="header_logo")
+      h1(class="header_logo_link ff-orbitron fw-bold") WETUBE
+        //- span(class="sr-only")=pageTitle
+    div(class="header_nav")
+      ul(class="nav")
+        //- li(class="nav_list")
+        //-   a(class="nav_link" href="/") Home
+        if !loggedIn
+          li(class="nav_list")
+            a(class="nav_link" href="/join")
+              i(class="icon_join iconSize-small")
+              span(class='sr-only') 회원가입
+          li(class="nav_list")
+            a(class="nav_link" href="/login")
+              i(class="icon_login iconSize-small")
+              span(class="sr-only") 로그인
+        else 
+          li(class="nav_list")
+            a(class="nav_link" href="/user/logout")
+              i(class="icon_logout iconSize-small")
+              span(class="sr-only") 로그아웃
+          li(class="nav_list")
+            a(class="nav_link" href="/user/edit")
+              i(class="icon_edit iconSize-small")
+              span(class="sr-only") #{user.name}님의 프로필 수정
+          li(class="nav_list")
+            a(class="nav_link" href=`/user/${user._id}`)
+              i(class="icon_profile iconSize-small")
+              span(class="sr-only") #{user.name}님의 프로필
+          li(class="nav_list")
+            a(class="nav_link" href="/videos/upload")
+              i(class="icon_upload iconSize-small")
+              span(class="sr-only") 비디오 올리기
+        li(class="nav_list")
+          a(class="nav_link" href="/search")
+            i(class="icon_search iconSize-small")
+            span(class="sr-only") 검색

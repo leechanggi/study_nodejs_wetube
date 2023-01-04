@@ -1,0 +1,105 @@
+/* orbitron-regular - latin */
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-regular.eot');
+  src: local(''),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-regular.eot?#iefix')
+      format('embedded-opentype'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-regular.woff2')
+      format('woff2'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-regular.woff')
+      format('woff'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-regular.ttf')
+      format('truetype'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-regular.svg#Orbitron')
+      format('svg');
+}
+
+/* orbitron-700 - latin */
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-700.eot');
+  src: local(''),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-700.eot?#iefix')
+      format('embedded-opentype'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-700.woff2') format('woff2'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-700.woff') format('woff'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-700.ttf') format('truetype'),
+    url('/src/client/assets/fonts/orbitron-v25-latin/orbitron-v25-latin-700.svg#Orbitron')
+      format('svg');
+}
+
+/* noto-sans-regular - latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-regular.eot');
+  src: local(''),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-regular.eot?#iefix')
+      format('embedded-opentype'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-regular.woff2')
+      format('woff2'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-regular.woff')
+      format('woff'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-regular.ttf')
+      format('truetype'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-regular.svg#NotoSans')
+      format('svg');
+}
+/* noto-sans-700 - latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-700.eot');
+  src: local(''),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-700.eot?#iefix')
+      format('embedded-opentype'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-700.woff2')
+      format('woff2'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-700.woff') format('woff'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-700.ttf')
+      format('truetype'),
+    url('/src/client/assets/fonts/noto-sans-v27-latin/noto-sans-v27-latin-700.svg#NotoSans')
+      format('svg');
+}
+
+/* noto-sans-kr-regular - latin */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  unicode-range: U+AC00-D7A3;
+  src: url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-regular.eot');
+  src: local(''),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-regular.eot?#iefix')
+      format('embedded-opentype'),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-regular.woff2')
+      format('woff2'),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-regular.woff')
+      format('woff'),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-regular.svg#NotoSansKR')
+      format('svg');
+}
+/* noto-sans-kr-700 - latin */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  unicode-range: U+AC00-D7A3;
+  src: url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-700.eot');
+  src: local(''),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-700.eot?#iefix')
+      format('embedded-opentype'),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-700.woff2')
+      format('woff2'),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-700.woff')
+      format('woff'),
+    url('/src/client/assets/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-700.svg#NotoSansKR')
+      format('svg');
+}

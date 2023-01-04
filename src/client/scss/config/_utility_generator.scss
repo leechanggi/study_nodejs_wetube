@@ -1,0 +1,23 @@
+@import './_utilities.scss';
+
+@each $key, $value in $utilities {
+  $property: map-get($value, property);
+  $values: map-get($value, values);
+  $property-class: null;
+
+  @if (map-has-key($value, class)) {
+    $property-class: map-get($value, class);
+  } @else {
+    $property-class: $property;
+  }
+
+  @if (type-of($values) == list) {
+    $values: zip($values, $values);
+  }
+
+  @each $prop, $value in $values {
+    .#{$property-class}-#{$prop} {
+      #{$property}: $value;
+    }
+  }
+}

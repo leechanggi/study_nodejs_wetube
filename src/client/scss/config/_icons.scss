@@ -1,0 +1,54 @@
+$size: (
+  'iconSize': (
+    property: 'iconSize',
+    values: (
+      small: 24,
+      normal: 32,
+      big: 64,
+    ),
+  ),
+);
+
+@each $key, $value in $size {
+  $property: map-get($value, property);
+  $values: map-get($value, values);
+
+  @each $prop, $value in $values {
+    .#{$property}-#{$prop} {
+      width: $value * 1px;
+      height: $value * 1px;
+    }
+  }
+}
+
+*[class^='icon_'] {
+  position: relative;
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.icon {
+  &_join {
+    background-image: url('/src/client/assets/images/icon_join.png');
+  }
+  &_login {
+    background-image: url('/src/client/assets/images/icon_login.png');
+  }
+  &_logout {
+    background-image: url('/src/client/assets/images/icon_logout.png');
+  }
+  &_edit {
+    background-image: url('/src/client/assets/images/icon_edit.png');
+  }
+  &_profile {
+    background-image: url('/src/client/assets/images/icon_profile.png');
+  }
+  &_upload {
+    background-image: url('/src/client/assets/images/icon_upload.png');
+  }
+  &_search {
+    background-image: url('/src/client/assets/images/icon_search.png');
+  }
+}
