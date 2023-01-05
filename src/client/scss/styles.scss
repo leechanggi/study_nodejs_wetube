@@ -9,6 +9,7 @@
 @import './components/_footer.scss';
 
 /* screens */
+@import './screens/_videoWatch.scss';
 
 /* defaults */
 body {
@@ -19,6 +20,10 @@ body {
     sans-serif;
   line-height: 1.4;
   color: $black;
+}
+
+#container {
+  margin: 0 auto;
 }
 
 .sr-only {

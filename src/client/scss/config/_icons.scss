@@ -1,4 +1,4 @@
-$size: (
+$icon: (
   'iconSize': (
     property: 'iconSize',
     values: (
@@ -9,7 +9,7 @@ $size: (
   ),
 );
 
-@each $key, $value in $size {
+@each $key, $value in $icon {
   $property: map-get($value, property);
   $values: map-get($value, values);
 
