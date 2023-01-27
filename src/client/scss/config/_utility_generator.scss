@@ -17,7 +17,7 @@
 
   @each $prop, $value in $values {
     .#{$property-class}-#{$prop} {
-      #{$property}: $value;
+      #{$property}: $value !important;
     }
   }
 }

@@ -2,8 +2,8 @@ extends ../layout.pug
 include ../mixin/mixinVideo.pug
 
 block content
-  h2 Welcome here you will see the trending videos
-  each video in videos
-    +mixinVideo(video)
-  else
-    div 데이터가 없습니다.
+  ul(class="video_list-wrap")
+    each video in videos
+      +mixinVideo(video)
+    else
+      li(class="no-data") 데이터가 없습니다.

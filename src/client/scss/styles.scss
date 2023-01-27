@@ -4,12 +4,20 @@
 @import './config/_utility_generator.scss';
 @import './config/_icons.scss';
 
+@import './_common.scss';
+@import './_layouy.scss';
+
 /* components */
 @import './components/_header.scss';
 @import './components/_footer.scss';
 
 /* screens */
 @import './screens/_videoWatch.scss';
+
+/* mixin */
+@import './mixin/_mixinVideo.scss';
+
+/*  */
 
 /* defaults */
 body {
@@ -20,19 +28,4 @@ body {
     sans-serif;
   line-height: 1.4;
   color: $black;
-}
-
-#container {
-  margin: 0 auto;
-}
-
-.sr-only {
-  position: absolute;
-  overflow: hidden;
-  clear: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 1px;
-  color: transparent;
 }

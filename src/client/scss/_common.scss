@@ -1,0 +1,10 @@
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  clear: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 1px;
+  color: transparent;
+}

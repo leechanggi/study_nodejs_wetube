@@ -1,39 +1,38 @@
 header(id='header' class="header")
   div(class="header_content")
     a(href="/" class="header_logo")
-      h1(class="header_logo_link ff-orbitron fw-bold") WETUBE
-        //- span(class="sr-only")=pageTitle
+      h1(class="header_logo_link ff-orbitron fw-bold") 
+        //- i(class="icon_logo iconSize-s")
+        | WeTube
     div(class="header_nav")
       ul(class="nav")
-        //- li(class="nav_list")
-        //-   a(class="nav_link" href="/") Home
         if !loggedIn
           li(class="nav_list")
             a(class="nav_link" href="/join")
-              i(class="icon_join iconSize-small")
+              i(class="icon_join iconSize-s")
               span(class='sr-only') 회원가입
           li(class="nav_list")
             a(class="nav_link" href="/login")
-              i(class="icon_login iconSize-small")
+              i(class="icon_login iconSize-s")
               span(class="sr-only") 로그인
         else 
           li(class="nav_list")
             a(class="nav_link" href="/user/logout")
-              i(class="icon_logout iconSize-small")
+              i(class="icon_logout iconSize-s")
               span(class="sr-only") 로그아웃
           li(class="nav_list")
             a(class="nav_link" href="/user/edit")
-              i(class="icon_edit iconSize-small")
+              i(class="icon_edit iconSize-s")
               span(class="sr-only") #{user.name}님의 프로필 수정
           li(class="nav_list")
             a(class="nav_link" href=`/user/${user._id}`)
-              i(class="icon_profile iconSize-small")
+              i(class="icon_profile iconSize-s")
               span(class="sr-only") #{user.name}님의 프로필
           li(class="nav_list")
             a(class="nav_link" href="/videos/upload")
-              i(class="icon_upload iconSize-small")
+              i(class="icon_upload iconSize-s")
               span(class="sr-only") 비디오 올리기
         li(class="nav_list")
           a(class="nav_link" href="/search")
-            i(class="icon_search iconSize-small")
+            i(class="icon_search iconSize-s")
             span(class="sr-only") 검색

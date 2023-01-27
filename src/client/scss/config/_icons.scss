@@ -2,9 +2,11 @@ $icon: (
   'iconSize': (
     property: 'iconSize',
     values: (
-      small: 24,
-      normal: 32,
-      big: 64,
+      xs: 16,
+      s: 24,
+      m: 32,
+      l: 40,
+      xl: 48,
     ),
   ),
 );
@@ -30,6 +32,9 @@ $icon: (
 }
 
 .icon {
+  &_logo {
+    background-image: url('/src/client/assets/images/icon_logo.png');
+  }
   &_join {
     background-image: url('/src/client/assets/images/icon_join.png');
   }

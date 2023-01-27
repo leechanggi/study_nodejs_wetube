@@ -14,4 +14,13 @@ $utilities: (
       bold: 700,
     ),
   ),
+  'display': (
+    property: 'display',
+    class: 'd',
+    values: (
+      b: block,
+      ib: inline-block,
+      flx: flex,
+    ),
+  ),
 );
