@@ -1,16 +1,23 @@
 const videoContent = document.querySelector('#videoContent');
 const video = document.querySelector('#video');
+
+const videoController = document.querySelector('#videoController');
+const inputVideoTimeline = document.querySelector('#videoTimeline');
+const inputVideoVolume = document.querySelector('#videoVolume');
 const btnVideoPlay = document.querySelector('#videoPlay');
 const btnVideoMute = document.querySelector('#videoMute');
 const btnVideoFull = document.querySelector('#videoFull');
+
 const videoCurrentTime = document.querySelector('#videoCurrentTime');
 const videoDuration = document.querySelector('#videoDuration');
-const inputVideoVolume = document.querySelector('#videoVolume');
-const inputVideoTimeline = document.querySelector('#videoTimeline');
 
 const minVideoVolume = 0;
 const maxVideoVolume = 1;
+
 let valueVideoVolume = 0.5;
+
+let handleVideoTimeout = null;
+let handleMoveTimeout = null;
 
 const handleLoadedmetadata = () => {
   const duration = Math.floor(video.duration);
@@ -92,8 +99,29 @@ const handleVideoFull = () => {
   btnVideoFull.innerHTML = fullScreen ? '전체화면으로 보기' : '기본화면으로 보기';
 };
 
+const handleVideoMouseMove = () => {
+  if (handleVideoTimeout) {
+    clearTimeout(handleVideoTimeout);
+    handleVideoTimeout = null;
+  }
+  if (handleMoveTimeout) {
+    clearTimeout(handleMoveTimeout);
+    handleMoveTimeout = null;
+  }
+  videoController.classList.add('show');
+  handleMoveTimeout = setTimeout(hideController, 3000);
+};
+
+const handleVideoMouseLeave = () => {
+  handleVideoTimeout = setTimeout(hideController, 3000);
+};
+
 const formatTime = time => {
   return new Date(time * 1000).toISOString().substring(11, 19).split(':');
+};
+
+const hideController = () => {
+  videoController.classList.remove('show');
 };
 
 video.addEventListener('loadedmetadata', handleLoadedmetadata);
@@ -103,3 +131,5 @@ inputVideoTimeline.addEventListener('input', handleVideoTimeline);
 btnVideoPlay.addEventListener('click', handleClickVideoPlay);
 btnVideoMute.addEventListener('click', handleVideoMute);
 btnVideoFull.addEventListener('click', handleVideoFull);
+videoContent.addEventListener('mousemove', handleVideoMouseMove);
+videoContent.addEventListener('mouseleave', handleVideoMouseLeave);

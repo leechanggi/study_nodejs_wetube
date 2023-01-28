@@ -4,18 +4,19 @@ block content
   if video.videoUrl
     div#videoContent
       video(src=`/${video.videoUrl}` controls=false width="100%")#video
-      div 
-        input(type="range" value="0" min="0" max="1" step="1")#videoTimeline
-      div
-        button#videoPlay 재생
-        button#videoMute 음소거
-        input(type="range" value="0.5" min="0" max="1" step="0.01")#videoVolume
-      div
-        span#videoCurrentTime 00:00
-        span  / 
-        span#videoDuration 00:00
-      div 
-        button#videoFull 전체화면으로 보기
+      div#videoController
+        div
+          input(type="range" value="0" min="0" max="1" step="1")#videoTimeline
+        div
+          button#videoPlay 재생
+          button#videoMute 음소거
+          input(type="range" value="0.5" min="0" max="1" step="0.01")#videoVolume
+        div
+          span#videoCurrentTime 00:00
+          span  / 
+          span#videoDuration 00:00
+        div 
+          button#videoFull 전체화면으로 보기
   div
     p=video.description
     small=video.createdAt
