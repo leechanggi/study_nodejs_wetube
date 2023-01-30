@@ -124,8 +124,17 @@ const hideController = () => {
   videoController.classList.remove('show');
 };
 
+const handleEnded = () => {
+  const { id } = video.dataset;
+
+  fetch(`/api/videos/${id}/view`, {
+    method: 'POST',
+  });
+};
+
 video.addEventListener('loadedmetadata', handleLoadedmetadata);
 video.addEventListener('timeupdate', handleTimeupdate);
+video.addEventListener('ended', handleEnded);
 inputVideoVolume.addEventListener('input', handleVideoVolume);
 inputVideoTimeline.addEventListener('input', handleVideoTimeline);
 btnVideoPlay.addEventListener('click', handleClickVideoPlay);
