@@ -1,0 +1,20 @@
+body {
+  background: $white;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: 'Noto Sans KR', 'Noto Sans', -apple-system, 'Malgun Gothic', '맑은 고딕', helvetica,
+    sans-serif;
+  line-height: 1.4;
+  color: $black;
+}
+
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  clear: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 1px;
+  color: transparent;
+}

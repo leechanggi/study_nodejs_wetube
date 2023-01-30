@@ -2,30 +2,10 @@
 @import './config/_reset.scss';
 @import './config/_variable.scss';
 @import './config/_utility_generator.scss';
+@import './config/_common.scss';
+@import './config/_layouy.scss';
 @import './config/_icons.scss';
-
-@import './_common.scss';
-@import './_layouy.scss';
 
 /* components */
 @import './components/_header.scss';
 @import './components/_footer.scss';
-
-/* screens */
-@import './screens/_videoWatch.scss';
-
-/* mixin */
-@import './mixin/_mixinVideo.scss';
-
-/*  */
-
-/* defaults */
-body {
-  background: $white;
-  font-weight: 400;
-  font-size: 16px;
-  font-family: 'Noto Sans KR', 'Noto Sans', -apple-system, 'Malgun Gothic', '맑은 고딕', helvetica,
-    sans-serif;
-  line-height: 1.4;
-  color: $black;
-}
