@@ -7,4 +7,6 @@ mixin mixinVideo(video)
     ul
       each hashtag in video.hashtags
         li=hashtag
+    p=video.meta.views
+      | 회
     hr

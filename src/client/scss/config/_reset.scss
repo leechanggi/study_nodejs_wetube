@@ -18,12 +18,12 @@ body {
 }
 
 body {
-  background: #fff;
+  background: $gray-09;
   word-break: break-all;
   letter-spacing: -0.02em;
   font-size: 16px;
   line-height: 1.25;
-  font-size: #000;
+  color: $gray-01;
   -webkit-text-size-adjust: none;
 }
 
