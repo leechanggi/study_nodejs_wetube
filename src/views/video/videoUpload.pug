@@ -2,7 +2,8 @@ extends ../layout.pug
 
 block content
   div
-    button(type="button" id="btnStartRecorder") 녹화 시작
+    video(id="videoPreview")
+  button(type="button" id="btnStartRecorder") 녹화 시작
   if errMessage
     span=errMessage
   form(method="POST" action="/videos/upload" enctype="multipart/form-data")
